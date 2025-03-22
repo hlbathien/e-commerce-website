@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import './index.scss'
 
 type FormData = {
   email: string
@@ -72,49 +73,45 @@ const RegisterForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {error && <div className="bg-red-50 p-4 rounded-md text-red-700 mb-4">{error}</div>}
+    <form onSubmit={handleSubmit(onSubmit)} className="register-form__container space-y-6">
+      {error && <div className="alert alert-error">{error}</div>}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="firstName" className="block mb-1 font-medium">
+      <div className="register-form__field-row">
+        <div className="register-form__field">
+          <label htmlFor="firstName" className="form-label">
             First Name
           </label>
           <input
             id="firstName"
             type="text"
-            className="w-full p-2 border rounded-md"
+            className="form-input"
             {...register('firstName', { required: 'First name is required' })}
           />
-          {errors.firstName && (
-            <p className="text-red-600 text-sm mt-1">{errors.firstName.message}</p>
-          )}
+          {errors.firstName && <p className="error-message">{errors.firstName.message}</p>}
         </div>
 
-        <div>
-          <label htmlFor="lastName" className="block mb-1 font-medium">
+        <div className="register-form__field">
+          <label htmlFor="lastName" className="form-label">
             Last Name
           </label>
           <input
             id="lastName"
             type="text"
-            className="w-full p-2 border rounded-md"
+            className="form-input"
             {...register('lastName', { required: 'Last name is required' })}
           />
-          {errors.lastName && (
-            <p className="text-red-600 text-sm mt-1">{errors.lastName.message}</p>
-          )}
+          {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
         </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="block mb-1 font-medium">
+      <div className="register-form__field">
+        <label htmlFor="email" className="form-label">
           Email Address
         </label>
         <input
           id="email"
           type="email"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           {...register('email', {
             required: 'Email is required',
             pattern: {
@@ -123,30 +120,30 @@ const RegisterForm: React.FC = () => {
             },
           })}
         />
-        {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && <p className="error-message">{errors.email.message}</p>}
       </div>
 
-      <div>
-        <label htmlFor="phone" className="block mb-1 font-medium">
+      <div className="register-form__field">
+        <label htmlFor="phone" className="form-label">
           Phone Number
         </label>
         <input
           id="phone"
           type="tel"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           placeholder="+1 (123) 456-7890"
           {...register('phone')}
         />
       </div>
 
-      <div>
-        <label htmlFor="password" className="block mb-1 font-medium">
+      <div className="register-form__field">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
           id="password"
           type="password"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           {...register('password', {
             required: 'Password is required',
             minLength: {
@@ -155,53 +152,48 @@ const RegisterForm: React.FC = () => {
             },
           })}
         />
-        {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
+        {errors.password && <p className="error-message">{errors.password.message}</p>}
       </div>
 
-      <div>
-        <label htmlFor="confirmPassword" className="block mb-1 font-medium">
+      <div className="register-form__field">
+        <label htmlFor="confirmPassword" className="form-label">
           Confirm Password
         </label>
         <input
           id="confirmPassword"
           type="password"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           {...register('confirmPassword', {
             required: 'Please confirm your password',
             validate: (value) => value === password || 'Passwords do not match',
           })}
         />
         {errors.confirmPassword && (
-          <p className="text-red-600 text-sm mt-1">{errors.confirmPassword.message}</p>
+          <p className="error-message">{errors.confirmPassword.message}</p>
         )}
       </div>
 
       <div className="space-y-4">
-        <div className="flex items-start">
+        <div className="register-form__checkbox-container">
           <input
             id="acceptedTerms"
             type="checkbox"
-            className="mt-1 mr-2"
+            className="register-form__checkbox"
             {...register('acceptedTerms', {
               required: 'You must accept the terms and conditions',
             })}
           />
           <label htmlFor="acceptedTerms">
-            I agree to the{' '}
-            <Link href="/terms" className="text-blue-600 hover:underline">
-              Terms and Conditions
-            </Link>
+            I agree to the <Link href="/terms">Terms and Conditions</Link>
           </label>
         </div>
-        {errors.acceptedTerms && (
-          <p className="text-red-600 text-sm">{errors.acceptedTerms.message}</p>
-        )}
+        {errors.acceptedTerms && <p className="error-message">{errors.acceptedTerms.message}</p>}
 
-        <div className="flex items-start">
+        <div className="register-form__checkbox-container">
           <input
             id="subscribeToNewsletter"
             type="checkbox"
-            className="mt-1 mr-2"
+            className="register-form__checkbox"
             {...register('subscribeToNewsletter')}
           />
           <label htmlFor="subscribeToNewsletter">
@@ -213,16 +205,13 @@ const RegisterForm: React.FC = () => {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-blue-400"
+        className="register-form__submit-button form-button"
       >
         {isLoading ? 'Creating Account...' : 'Create Account'}
       </button>
 
-      <div className="text-center mt-4">
-        Already have an account?{' '}
-        <Link href="/login" className="text-blue-600 hover:underline">
-          Log in
-        </Link>
+      <div className="register-form__login-link">
+        Already have an account? <Link href="/login">Log in</Link>
       </div>
     </form>
   )

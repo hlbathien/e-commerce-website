@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function LoginPage({ searchParams }: { searchParams: { registered?: string } }) {
-  const showRegistrationMessage = searchParams.registered === 'true'
+  const showRegistrationMessage = searchParams?.registered === 'true'
 
   return (
     <div className="container mx-auto py-12 px-4">

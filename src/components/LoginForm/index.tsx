@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import './index.scss'
 
 type FormData = {
   email: string
@@ -54,53 +55,44 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {error && <div className="bg-red-50 p-4 rounded-md text-red-700 mb-4">{error}</div>}
+    <form onSubmit={handleSubmit(onSubmit)} className="login-form__container space-y-6">
+      {error && <div className="alert alert-error">{error}</div>}
 
-      <div>
-        <label htmlFor="email" className="block mb-1 font-medium">
+      <div className="login-form__field">
+        <label htmlFor="email" className="form-label">
           Email Address
         </label>
         <input
           id="email"
           type="email"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           {...register('email', { required: 'Email is required' })}
         />
-        {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && <p className="error-message">{errors.email.message}</p>}
       </div>
 
-      <div>
-        <label htmlFor="password" className="block mb-1 font-medium">
+      <div className="login-form__field">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
           id="password"
           type="password"
-          className="w-full p-2 border rounded-md"
+          className="form-input"
           {...register('password', { required: 'Password is required' })}
         />
-        {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
-        <div className="mt-1 text-right">
-          <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-            Forgot password?
-          </Link>
+        {errors.password && <p className="error-message">{errors.password.message}</p>}
+        <div className="login-form__forgot-password">
+          <Link href="/forgot-password">Forgot password?</Link>
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-blue-400"
-      >
+      <button type="submit" disabled={isLoading} className="login-form__submit-button form-button">
         {isLoading ? 'Logging in...' : 'Log In'}
       </button>
 
-      <div className="text-center mt-4">
-        Don&apos;t have an account?{' '}
-        <Link href="/register" className="text-blue-600 hover:underline">
-          Register
-        </Link>
+      <div className="login-form__register-link">
+        Don&apos;t have an account? <Link href="/register">Register</Link>
       </div>
     </form>
   )

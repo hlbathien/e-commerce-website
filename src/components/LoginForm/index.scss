@@ -1,0 +1,56 @@
+.login-form {
+  &__container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  &__field {
+    margin-bottom: 1.5rem;
+  }
+
+  &__forgot-password {
+    text-align: right;
+    margin-top: 0.25rem;
+    
+    a {
+      font-size: 0.875rem;
+      color: #2563eb;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__submit-button {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 0;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    
+    &:hover:not(:disabled) {
+      background-color: #1d4ed8;
+    }
+    
+    &:disabled {
+      background-color: #93c5fd;
+      cursor: not-allowed;
+    }
+  }
+
+  &__register-link {
+    text-align: center;
+    margin-top: 1rem;
+    
+    a {
+      color: #2563eb;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
